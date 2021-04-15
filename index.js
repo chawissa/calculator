@@ -1,22 +1,30 @@
 "use strict";
 
-const calcKeys = document.querySelector(".buttons-grid");
-const userInput = document.querySelector("#user-input");
-const calculator = document.querySelector(".calculator");
-const displayResult = document.querySelector("#result");
-let isEqualsPressed = false;
-let equation = 0;
-let checkForDecimal = "";
+const numberButtons = document.querySelectorAll("[data-number]");
+const operatorButtons = document.querySelectorAll("[data-operator]");
+const equalsButton = document.querySelector("[data-equals]");
+const clearButton = document.querySelector("[data-backspace]");
+const resetButton = document.querySelector("[data-reset]");
+const decimalButton = document.querySelector("[data-decimal]");
+const screen = document.querySelector("[data-screen]");
 
-calcKeys.addEventListener("click", (e) => {
-  if (!e.target.closest("button")) return;
+let firstNumber = "";
+let secondNumber = "";
+let currentOperation = null;
+let shouldResetScreen = false;
 
-  const key = e.target;
-  const keyValue = key.textContent;
-  let inputDisplay = userInput.textContent;
-  const { type } = key.dataset;
-  const { previousKeyType } = calculator.dataset;
+window.addEventListener("keydown");
+equalsButton.addEventListener("click");
+clearButton.addEventListener("click");
+resetButton.addEventListener("click");
+decimalButton.addEventListener("click");
 
-  if (type === "number" && !isEqualsPressed) {
-  }
-});
+function appendNumber(number) {
+  if (screen.textContent === "0" || shouldResetScreen) resetScreen();
+  screen.textContent += number;
+}
+
+function resetScreen() {
+  screen.textContent = "";
+  shouldResetScreen = false;
+}
