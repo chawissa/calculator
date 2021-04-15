@@ -13,11 +13,11 @@ let secondNumber = "";
 let currentOperation = null;
 let shouldResetScreen = false;
 
-window.addEventListener("keydown");
-equalsButton.addEventListener("click");
-clearButton.addEventListener("click");
-resetButton.addEventListener("click");
-decimalButton.addEventListener("click");
+window.addEventListener("keydown", setInput);
+// equalsButton.addEventListener("click");
+// clearButton.addEventListener("click");
+// resetButton.addEventListener("click");
+// decimalButton.addEventListener("click");
 
 function appendNumber(number) {
   if (screen.textContent === "0" || shouldResetScreen) resetScreen();
@@ -27,4 +27,26 @@ function appendNumber(number) {
 function resetScreen() {
   screen.textContent = "";
   shouldResetScreen = false;
+}
+
+function clear() {
+  screen.textContent = "0";
+  firstNumber = "";
+  secondNumber = "";
+  currentOperation = null;
+}
+
+function appendDecimal() {
+  if (shouldResetScreen) resetScreen();
+  if (screen.textContent === "") screen.textContent = "0";
+  if (screen.textContent.includes(".")) return;
+  screen.textContent += ".";
+}
+
+function deleteNumber() {
+  screen.textContent = screen.textContent.toString().slice(0, -1);
+}
+
+function setInput(e) {
+  if (e.key >= 0 && e.key <= 9) appendNumber(e.key);
 }
