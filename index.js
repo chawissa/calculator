@@ -86,6 +86,40 @@ function setInput(e) {
   if (e.key === "=" || e.key === "Enter") evaluate();
   if (e.key === "Backspace") deleteNumber();
   if (e.key === "Escape") clear();
-  if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/")
+  if (
+    e.key === "+" ||
+    e.key === "-" ||
+    e.key === "*" ||
+    e.key === "/" ||
+    e.key === "%"
+  )
     setOperation(convertOperator(e.key));
+}
+
+function convertOperator(keyboardOperator) {
+  if (keyboardOperator === "%") return "%";
+  if (keyboardOperator === "/") return "÷";
+  if (keyboardOperator === "*") return "x";
+  if (keyboardOperator === "-") return "-";
+  if (keyboardOperator === "+") return "+";
+}
+
+function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
+function multiply(a, b) {
+  return a * b;
+}
+
+function divide(a, b) {
+  return a / b;
+}
+
+function remainder(a, b) {
+  return a % b;
 }
