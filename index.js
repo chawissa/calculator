@@ -43,6 +43,13 @@ function appendDecimal() {
   screen.textContent += ".";
 }
 
+function setOperation(operator) {
+  if (currentOperation !== null) evaluate();
+  firstNumber = screen.textContent;
+  currentOperation = operator;
+  shouldResetScreen = true;
+}
+
 function deleteNumber() {
   screen.textContent = screen.textContent.toString().slice(0, -1);
 }
