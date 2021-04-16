@@ -14,10 +14,18 @@ let currentOperation = null;
 let shouldResetScreen = false;
 
 window.addEventListener("keydown", setInput);
-// equalsButton.addEventListener("click");
-// clearButton.addEventListener("click");
-// resetButton.addEventListener("click");
-// decimalButton.addEventListener("click");
+equalsButton.addEventListener("click", evaluate);
+clearButton.addEventListener("click", clear);
+resetButton.addEventListener("click", deleteNumber);
+decimalButton.addEventListener("click", appendDecimal);
+
+numberButtons.forEach((button) =>
+  button.addEventListener("click", () => appendNumber(button.textContent))
+);
+
+operatorButtons.forEach((button) =>
+  button.addEventListener("click", () => setOperation(button.textContent))
+);
 
 function appendNumber(number) {
   if (screen.textContent === "0" || shouldResetScreen) resetScreen();
@@ -43,6 +51,10 @@ function appendDecimal() {
   screen.textContent += ".";
 }
 
+function deleteNumber() {
+  screen.textContent = screen.textContent.toString().slice(0, -1);
+}
+
 function setOperation(operator) {
   if (currentOperation !== null) evaluate();
   firstNumber = screen.textContent;
@@ -50,10 +62,30 @@ function setOperation(operator) {
   shouldResetScreen = true;
 }
 
-function deleteNumber() {
-  screen.textContent = screen.textContent.toString().slice(0, -1);
+function evaluate() {
+  if (currentOperation === null || shouldResetScreen) return;
+  if (currentOperation === "÷" && screen.textContent === "0") {
+    alert("You can't divide by 0!");
+    clear();
+    return;
+  }
+  secondNumber = screen.textContent;
+  screen.textContent = roundResult(
+    operate(currentOperation, firstNumber, secondNumber)
+  );
+  currentOperation = null;
+}
+
+function roundResult(number) {
+  return Math.round(number * 1000) / 1000;
 }
 
 function setInput(e) {
   if (e.key >= 0 && e.key <= 9) appendNumber(e.key);
+  if (e.key === ".") appendDecimal();
+  if (e.key === "=" || e.key === "Enter") evaluate();
+  if (e.key === "Backspace") deleteNumber();
+  if (e.key === "Escape") clear();
+  if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/")
+    setOperation(convertOperator(e.key));
 }
