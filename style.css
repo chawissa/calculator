@@ -18,6 +18,8 @@
   border: 2px #000 solid;
   border-radius: 5px;
   margin-bottom: 1.3rem;
+  font-size: 3rem;
+  color: rgb(46, 45, 45);
 }
 
 .buttons-grid {
