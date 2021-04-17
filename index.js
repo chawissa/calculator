@@ -123,3 +123,23 @@ function divide(a, b) {
 function remainder(a, b) {
   return a % b;
 }
+
+function operate(operator, a, b) {
+  a = Number(a);
+  b = Number(b);
+  switch (operator) {
+    case "+":
+      return add(a, b);
+    case "-":
+      return subtract(a, b);
+    case "x":
+      return multiply(a, b);
+    case "÷":
+      if (b === 0) return null;
+      else return divide(a, b);
+    case "%":
+      return remainder(a, b);
+    default:
+      return null;
+  }
+}
